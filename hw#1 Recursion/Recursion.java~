@@ -1,0 +1,56 @@
+import java.util.Random;
+import java.util.Scanner;
+import java.util.ArrayList;
+public class ArrayMethods{
+    public static int rowSum(int[][] AR, int x){
+	int sum = 0;
+	for(int y = 0; y < AR[x].length;y++){
+	    sum+=AR[x][y];
+	}
+	return sum;
+    }
+    private 
+    public static int columnSum(int[][] AR, int x){
+	int sum = 0;
+	for(int y =0;y<AR.length;y++){
+	    if(x <AR[y].length){
+		sum += AR[y][x];
+	    }
+	}
+	return sum;
+    }
+    public static int[] allRowSums(int[][] AR){
+	int ary[] = new int[AR.length];
+	for(int x = 0;x <AR.length;x++){
+	    ary[x] = rowSum(AR, x);
+	}
+	return ary;
+    }
+    public static int[] allColumnSums(int[][] AR){
+	int ary[] = new int[AR.length];
+	for(int x = 0;x <AR[0].length;x++){
+	    ary[x] = columnSum(AR, x);
+	}
+	return ary;
+    }
+    public static boolean isRowMagic(int[][] AR){
+	boolean value = true;
+	int[] ary = allRowSums(AR);
+	for(int x = 0;x <ary.length-1;x ++){
+	    if(ary[x] != ary[x+1]){
+		value = false;
+	    }
+	}
+	return value;
+    }
+    public static boolean isColumnMagic(int[][] AR){
+	boolean value = true;
+	int[] ary = allColumnSums(AR);
+	for(int x = 0;x <ary.length-1;x ++){
+	    if(ary[x] != ary[x+1]){
+		value = false;
+	    }
+	}
+	return value;
+    }
+}
