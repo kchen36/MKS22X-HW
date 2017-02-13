@@ -72,20 +72,16 @@ public class QueenBoard{
 	}
     }
     private void solveH(int n){
-	if(queens == board.length){
-		    break;
-		}
 	for(int x = 0; x < board.length;x ++){
 	    if(board[n][x] == 0){
 		placeQueen(n,x);
 		queens ++;
-		if(queens == board.length){
-		    break;
-		}
 		if(n < board.length - 1){
 		    solveH(n + 1);
 		}
-		removeQueen(n,x);
+		if(queens != board.length){
+		    removeQueen(n,x);
+		}
 	    }
 	}
     }
@@ -105,7 +101,14 @@ public class QueenBoard{
     }
     public void countSolutions(){
 	solutionCount = 0;
+	clean();
 	solveH2(0);
+    }
+    public void clean(){
+	for(int x = 0; x < board.length;x++){
+	    for(int y = 0; y < board.length; y++){
+		board[x][y] == 0;
+	    }
     }
     public String toString(){
 	String ans = "";
@@ -121,6 +124,9 @@ public class QueenBoard{
 	}
 	return ans;
     }
+    public static void main(String[] args){
+	QueenBoard a = new QueenBoard(4);
+	a.solve();
+	System.out.println(a);
+    }
 }
-
-
