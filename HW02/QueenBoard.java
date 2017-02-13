@@ -26,22 +26,22 @@ public class QueenBoard{
 	for(int val = y  + 1; val < board.length;val++){
 	    board[x][val] += 1;
 	}
-	for(int val = x - 1; val > 0;val--){
+	for(int val = x - 1; val >= 0;val--){
 	    board[val][y] += 1;
 	}
-	for(int val = y - 1; val > 0;val--){
+	for(int val = y - 1; val >= 0;val--){
 	    board[x][val] += 1;
 	}
 	for(int val = 1; val + x < board.length && val + y < board.length;val++){
 	    board[val+ x][val + y] += 1;
 	}
-	for(int val = 1; val + x < board.length && y - val > 0;val++){
+	for(int val = 1; val + x < board.length && y - val >= 0;val++){
 	    board[x + val][y - val] += 1;
 	}
-	for(int val = 1; x - val > 0 && y + val < board.length ;val++){
+	for(int val = 1; x - val >= 0 && y + val < board.length ;val++){
 	    board[x - val][y + val] += 1;
 	}
-	for(int val = 1;y - val > 0 && x - val > 0;val++){
+	for(int val = 1;y - val >= 0 && x - val >= 0;val++){
 	    board[x - val][y - val] += 1;
 	}
     }
@@ -52,50 +52,52 @@ public class QueenBoard{
 	for(int val = y + 1; val < board.length;val++){
 	    board[x][val] -= 1;
 	}
-	for(int val = x - 1; val > 0;val--){
+	for(int val = x - 1; val >= 0;val--){
 	    board[val][y] -= 1;
 	}
-	for(int val = y - 1; val > 0;val--){
+	for(int val = y - 1; val >= 0;val--){
 	    board[x][val] -= 1;
 	}
 	for(int val = 1; val + x < board.length && val + y < board.length;val++){
 	    board[val + x][val + y] -= 1;
 	}
-	for(int val = 1; val + x < board.length && y - val > 0;val++){
+	for(int val = 1; val + x < board.length && y - val >= 0;val++){
 	    board[x + val][y - val] -= 1;
 	}
-	for(int val = 1; x - val > 0 && y + val < board.length ;val++){
+	for(int val = 1; x - val >= 0 && y + val < board.length ;val++){
 	    board[x - val][y + val] -= 1;
 	}
-	for(int val = 1;y - val > 0 && x - val > 0;val++){
+	for(int val = 1;y - val >= 0 && x - val >= 0;val++){
 	    board[x - val][y - val] -= 1;
 	}
     }
     private void solveH(int n){
-	for(int x = 0; x < board.length;x ++){
+	for(int x = 0; x < board.length && n < board.length;x ++){
 	    if(board[n][x] == 0){
 		placeQueen(n,x);
-		queens ++;
-		if(n < board.length - 1){
-		    solveH(n + 1);
+		queens++;
+		solveH(n + 1);
+		if(queens == 4){
+		    break;
 		}
-		if(queens != board.length){
-		    removeQueen(n,x);
-		}
+		removeQueen(n,x);
+		queens--;
 	    }
 	}
     }
     private void solveH2(int n){
-	for(int x = 0; x < board.length;x ++){
+	for(int x = 0; x < board.length && n < board.length;x ++){
 	    if(board[n][x] == 0){
 		placeQueen(n,x);
+		queens++;
+		System.out.println(toString());
+		solveH(n + 1);
+		System.out.println(queens);
 		if(queens == board.length){
 		    solutionCount ++;
 		}
-		if(n < board.length - 1){
-		    solveH(n + 1);
-		}
 		removeQueen(n,x);
+		queens--;
 	    }
 	}
     }
@@ -104,11 +106,20 @@ public class QueenBoard{
 	clean();
 	solveH2(0);
     }
+    public int getSolutionCount(){
+	if(solutionCount == 0){
+	    return -1;
+	}
+	else{
+	    return solutionCount;
+	}
+    }
     public void clean(){
 	for(int x = 0; x < board.length;x++){
 	    for(int y = 0; y < board.length; y++){
-		board[x][y] == 0;
+		board[x][y] = 0;
 	    }
+	}
     }
     public String toString(){
 	String ans = "";
@@ -126,7 +137,10 @@ public class QueenBoard{
     }
     public static void main(String[] args){
 	QueenBoard a = new QueenBoard(4);
+	QueenBoard b = new QueenBoard(4);
 	a.solve();
 	System.out.println(a);
+	b.countSolutions();
+	System.out.println(b.getSolutionCount());
     }
 }
