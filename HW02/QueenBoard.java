@@ -9,7 +9,7 @@ public class QueenBoard{
     }
     public void solve(){
 	queens = 0;
-	solveH(0);
+	solveH(0,false);
     }
     private void placeQueen(int x,int y){
 	board[x][y] = -1;
@@ -71,30 +71,18 @@ public class QueenBoard{
 	    board[x - val][y - val] -= 1;
 	}
     }
-    private void solveH(int n){
+    private void solveH(int n,boolean status){
 	for(int x = 0; x < board.length && n < board.length;x ++){
 	    if(board[n][x] == 0){
 		placeQueen(n,x);
 		queens++;
-		solveH(n + 1);
-		if(queens == 4){
-		    break;
-		}
-		removeQueen(n,x);
-		queens--;
-	    }
-	}
-    }
-    private void solveH2(int n){
-	for(int x = 0; x < board.length && n < board.length;x ++){
-	    if(board[n][x] == 0){
-		placeQueen(n,x);
-		queens++;
-		System.out.println(toString());
-		solveH(n + 1);
-		System.out.println(queens);
+		solveH(n + 1,status);
 		if(queens == board.length){
-		    solutionCount ++;
+		    if(status == false){
+			break;
+		    }else{
+			solutionCount++;
+		    }
 		}
 		removeQueen(n,x);
 		queens--;
@@ -103,8 +91,7 @@ public class QueenBoard{
     }
     public void countSolutions(){
 	solutionCount = 0;
-	clean();
-	solveH2(0);
+	solveH(0,true);
     }
     public int getSolutionCount(){
 	if(solutionCount == 0){
@@ -112,13 +99,6 @@ public class QueenBoard{
 	}
 	else{
 	    return solutionCount;
-	}
-    }
-    public void clean(){
-	for(int x = 0; x < board.length;x++){
-	    for(int y = 0; y < board.length; y++){
-		board[x][y] = 0;
-	    }
 	}
     }
     public String toString(){
@@ -137,10 +117,11 @@ public class QueenBoard{
     }
     public static void main(String[] args){
 	QueenBoard a = new QueenBoard(4);
-	QueenBoard b = new QueenBoard(4);
+	QueenBoard b = new QueenBoard(5);
 	a.solve();
 	System.out.println(a);
 	b.countSolutions();
 	System.out.println(b.getSolutionCount());
+
     }
 }
