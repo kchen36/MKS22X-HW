@@ -70,6 +70,8 @@ public class KnightBoard{
 	level--;
     }
     public void solve() {
+	board[0][0] = 1;
+	level += 1;
 	solveH(0,0);
     }
     public void solveH(int rows, int cols){
