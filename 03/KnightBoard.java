@@ -8,47 +8,62 @@ public class KnightBoard{
     public void move(int rows, int cols,int attempt){
 	int row = board.length;
 	int col = board[0].length;
-	if(attempt == 0 && rows + 2 < row && cols + 1 < col && board[rows + 2][cols + 1] == 0){
-	    board[rows + 2][cols + 1] = level;
-	    level++;
-	    solveH(rows + 2, cols + 1);
+	if(attempt == 0 && rows + 2 < row && cols + 1 < col){
+	    if(board[rows + 2][cols + 1] == 0){
+		board[rows + 2][cols + 1] = level;
+		level++;
+		solveH(rows + 2, cols + 1);
+	    }
 	}
-	if(attempt == 1 && rows + 2 < row && cols - 1 >= 0 && board[rows + 2][cols - 1] == 0){
-	    board[rows + 2][cols - 1] = level;
-	    level++;
-	    solveH(rows + 2, cols - 1);
+	if(attempt == 1 && rows + 2 < row && cols - 1 >= 0){
+	    if(board[rows + 2][cols - 1] == 0){
+		board[rows + 2][cols - 1] = level;
+		level++;
+		solveH(rows + 2, cols - 1);
+	    }
 	}
-	if(attempt == 2 && rows - 2 >= 0 && cols - 1 >= 0 && board[rows - 2][cols - 1] == 0){
-	    board[rows - 2][cols - 1] = level;
-	    level++;
-	    solveH(rows - 2, cols - 1);
+	if(attempt == 2 && rows - 2 >= 0 && cols - 1 >= 0){
+	    if(board[rows - 2][cols - 1] == 0){
+		board[rows - 2][cols - 1] = level;
+		level++;
+		solveH(rows - 2, cols - 1);
+	    }
 	}
-	if(attempt == 3 && rows - 2 >= 0 && cols + 1 < col && board[rows - 2][cols + 1] == 0){
-	    board[rows - 2][cols + 1] = level;
-	    level++;
-	    solveH(rows - 2, cols + 1);
+	if(attempt == 3 && rows - 2 >= 0 && cols + 1 < col){
+	    if(board[rows - 2][cols + 1] == 0){
+		board[rows - 2][cols + 1] = level;
+		level++;
+		solveH(rows - 2, cols + 1);
+	    }
 	}
-	if(attempt == 4 && rows + 1 < row && cols + 2 < col && board[rows + 1][cols + 2] == 0){
-	    board[rows + 1][cols + 2] = level;
-	    level++;
-	    solveH(rows + 1, cols + 2);
+	if(attempt == 4 && rows + 1 < row && cols + 2 < col){
+	    if(board[rows + 1][cols + 2] == 0){
+		board[rows + 1][cols + 2] = level;
+		level++;
+		solveH(rows + 1, cols + 2);
+	    }
 	}
-	if(attempt == 5 && rows + 1 < row && cols - 2 >= 0 && board[rows + 1][cols - 2] ==0){
-	    board[rows + 1][cols - 2] = level;
-	    level++;
-	    solveH(rows + 1, cols - 2);  
+	if(attempt == 5 && rows + 1 < row && cols - 2 >= 0){
+	    if(board[rows + 1][cols - 2] == 0){
+		board[rows + 1][cols - 2] = level;
+		level++;
+		solveH(rows + 1, cols - 2);  
+	    }
 	}
-	if(attempt == 6 && rows - 1 >= 0 && cols - 2 >= 0 && board[rows - 1][cols - 2] == 0){
-	    board[rows - 1][cols - 2] = level;
-	    level++;
-	    solveH(rows - 1, cols -2);
+	if(attempt == 6 && rows - 1 >= 0 && cols - 2 >= 0){
+	    if(board[rows - 1][cols - 2] == 0){
+		board[rows - 1][cols - 2] = level;
+		level++;
+		solveH(rows - 1, cols -2);
+	    }
 	}
-	if(attempt == 7 && rows - 1 >= 0 && cols + 2 < col && board[rows - 1][cols + 2] == 0){
-	    board[rows - 1][cols + 2] = level;
-	    level++;
-	    solveH(rows - 1, cols + 2);
+	if(attempt == 7 && rows - 1 >= 0 && cols + 2 < col){
+	    if(board[rows - 1][cols + 2] == 0){
+		board[rows - 1][cols + 2] = level;
+		level++;
+		solveH(rows - 1, cols + 2);
+	    }
 	}
-	System.out.println(toString());
     }
     public void remove(int rows,int cols){
 	board[rows][cols] = 0;
@@ -71,10 +86,10 @@ public class KnightBoard{
 	for(int x = 0; x < board.length; x ++){
 	    for(int y = 0; y < board[0].length; y++){
 		if(board[x][y] > 9){
-		    ans += board[x][y];
+		    ans += board[x][y]  + " ";
 		}
 		else{
-		    ans += " " + board[x][y];
+		    ans += " " + board[x][y] + " ";
 		}
 	    }
 	    ans +="\n";
