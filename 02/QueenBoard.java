@@ -2,9 +2,9 @@ public class QueenBoard{
     private int[][]board;
     private int solutionCount;
     private int queens;
+    private boolean gotSolution = false;
     public QueenBoard(int n){
 	board= new int [n][n];
-	solutionCount = 0;
 	queens = 0;
     }
     public void solve(){
@@ -92,14 +92,13 @@ public class QueenBoard{
     public void countSolutions(){
 	solutionCount = 0;
 	solveH(0,true);
+	gotSolution = true;
     }
     public int getSolutionCount(){
-	if(solutionCount == 0){
-	    return -1;
-	}
-	else{
+	if(gotSolution == true){
 	    return solutionCount;
 	}
+	else return -1;
     }
     public String toString(){
 	String ans = "";
