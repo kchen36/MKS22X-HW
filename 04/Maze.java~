@@ -23,51 +23,52 @@ public class Maze{
     }
     public boolean solve(){
 	findStart();
-	go();
+	return go();
     }
     private boolean go(){
 	if(maze[xval + 1][yval]=='E' ||maze[xval - 1][yval]=='E'||maze[xval][yval + 1]=='E'|| maze[xval][yval - 1]=='E'){
+	    maze[xval][yval] = '@';
 	    return true;
 	}
 	if(maze[xval + 1][yval]==' '){
 	    maze[xval][yval] ='@';
 	    xval += 1;
-	    go();
+	    return go();
 	}
 	if(maze[xval - 1][yval]==' '){
 	    maze[xval][yval] ='@';
 	    xval -= 1;
-	    go();
+	    return go();
 	}
 	if(maze[xval][yval + 1]==' '){
 	    maze[xval][yval] ='@';
 	    yval += 1;
-	    go();
+	    return go();
 	}
 	if(maze[xval][yval - 1]==' '){
 	    maze[xval][yval] ='@';
 	    yval -= 1;
-	    go();
+	    return go();
 	}
 	if(maze[xval + 1][yval]=='@'){
 	    maze[xval][yval] ='.';
 	    xval += 1;
-	    go();
+	    return go();
 	}
 	if(maze[xval - 1][yval]=='@'){
 	    maze[xval][yval] ='.';
 	    xval -= 1;
-	    go();
+	    return go();
 	}
 	if(maze[xval][yval + 1]=='@'){
 	    maze[xval][yval] ='.';
 	    yval += 1;
-	    go();
+	    return go();
 	}
 	if(maze[xval][yval - 1]=='@'){
 	    maze[xval][yval] ='.';
 	    yval -= 1;
-	    go();
+	    return go();
 	}
 	return false;
     }
@@ -85,25 +86,28 @@ public class Maze{
         //erase terminal, go to top left of screen.
         System.out.println("\033[2J\033[1;1H");
     }
-    public void readMe(String filename)throws FileNotFoundException{
-	File infile = new File(filename);
-        Scanner inf = new Scanner(infile);
-	String str =inf.toString();
-	if(str.indexOf('E') != -1 || str.indexOf('S') != -1){
-	    int linelength = str.indexOf("\n");
-	    String line = "";
-	    int lineNumber = str.split("\n").length;
-	    maze =new char[lineNumber][linelength];
-	    int l = 0;
-	    while(inf.hasNextLine()){
-		String s = inf.nextLine();
-		for(int x = 0; x < line.length();x ++){
-		    maze[l][x] = s.charAt(x);
-		}
-		l++;
-	    }			  
+    public void readMe(String filename){
+	try{
+	    File infile = new File(filename);
+	    Scanner inf = new Scanner(infile);
+	    String str =inf.toString();
+	    if(str.indexOf('E') != -1 || str.indexOf('S') != -1){
+		int linelength = str.indexOf("\n");
+		String line = "";
+		int lineNumber = str.split("\n").length;
+		maze =new char[lineNumber][linelength];
+		int l = 0;
+		while(inf.hasNextLine()){
+		    String s = inf.nextLine();
+		    for(int x = 0; x < line.length();x ++){
+			maze[l][x] = s.charAt(x);
+		    }
+		    l++;
+		}			  
+	    }
 	}
-	else System.out.println("No start or end");
+	catch(FileNotFoundException e){
+	}
     }
     public String toString(){
 	String ans = "";
@@ -113,6 +117,7 @@ public class Maze{
 	    }
 	    ans += "\n";
 	}
+	return ans;
     }
     public static void main(String[] args){
 	Maze a = new Maze("data1.txt");

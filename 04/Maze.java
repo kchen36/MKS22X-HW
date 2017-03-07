@@ -87,23 +87,25 @@ public class Maze{
         System.out.println("\033[2J\033[1;1H");
     }
     public void readMe(String filename){
-	try{
-	    File infile = new File(filename);
-	    Scanner inf = new Scanner(infile);
-	    String str =inf.toString();
-	    if(str.indexOf('E') != -1 || str.indexOf('S') != -1){
-		int linelength = str.indexOf("\n");
-		String line = "";
-		int lineNumber = str.split("\n").length;
-		maze =new char[lineNumber][linelength];
-		int l = 0;
-		while(inf.hasNextLine()){
-		    String s = inf.nextLine();
-		    for(int x = 0; x < line.length();x ++){
-			maze[l][x] = s.charAt(x);
-		    }
-		    l++;
-		}			  
+	File text = new File(filename);
+        try{
+	    Scanner inf = new Scanner(text);
+	    int lineNumber = 1;
+	    String line="";
+	    while(inf.hasNextLine()){
+		line = inf.nextLine();
+		lineNumber++;
+	    }
+	    maze=new char[lineNumber][line.length()];
+
+	    Scanner inf2 = new Scanner(text);
+	    lineNumber=0;
+	    while(inf2.hasNextLine()){
+		line = inf2.nextLine();
+		for(int i=0;i<line.length();i++){
+		    maze[lineNumber][i]=line.charAt(i);
+		}
+		lineNumber++;
 	    }
 	}
 	catch(FileNotFoundException e){
