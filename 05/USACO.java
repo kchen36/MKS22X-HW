@@ -4,8 +4,11 @@ import java.util.Scanner;
 public class USACO {
     public int E, vol; 
     public int[][] pasture;
-    public lakeMaking(String file){
+    public USACO(){
+    }
+    public int Bronze(String file){
 	scanner(file);
+	solve()
     }
     public void scanner(String file) {
 	try{
