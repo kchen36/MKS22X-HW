@@ -6,14 +6,14 @@ public class USACO {
     public int[][] pasture;
     public USACO(){
     }
-    public int Bronze(String file){
+    public int bronze(String file){
 	scanner(file);
-	solve()
+	return solve();
     }
     public void scanner(String file) {
 	try{
 	    //instead of a try/catch, you can throw the FileNotFoundException.
-	    File text = new File(file);// can be a path"/full/path/to/file.txt" 
+	    File text = new File(file);// can be a path"/full/path/to/file.txt
 	    Scanner inf = new Scanner(text);
 	    pasture= new int[inf.nextInt()][inf.nextInt()];
 	    inf.nextInt();
@@ -24,12 +24,13 @@ public class USACO {
 	    }
 	    while(inf.hasNextInt()){
 		stomp(inf.nextInt(),inf.nextInt(),inf.nextInt());
+	    }
 	}
-	catch(FileNotFoundexception e){
+	catch(FileNotFoundException e){
 	}
     }
     public int solve(){
-	inv val= 0;
+	int val= 0;
 	for(int y = 0; y < pasture.length; y ++){
 	    for(int x = 0; x < pasture[y].length;x ++){
 		if(pasture[y][x] < E){
@@ -74,7 +75,7 @@ public class USACO {
 	return r >= 0 && c >= 0 && r < pasture.length  && c < pasture[0].length;
     }
     public void main(String[] args){
-	LakeMaking a = new LakeMaking("test.txt");
-	System.out.println(a.solve());
+	USACO a = new USACO();
+	System.out.println(a.bronze("lake"));
     }
 }
