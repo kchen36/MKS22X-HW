@@ -1,0 +1,41 @@
+import java.util.*;
+public class Quick{
+    public Quick(){
+    }
+    public static int quickselect(int []data, int k){
+	start = 0;
+	while(part(data,start,data.length()) != k){
+	    start = part(data,start,data.length())
+	}
+	else{
+	    return data[start]; 
+	}
+
+    }
+    int part(int[] data, int start, int end){
+	Random r = new Random();
+	int pivot = r.nextInt(end - start);
+	int val = data[pivot];
+	data[pivot] = data[start];
+	int holder = 0;
+	int pos = end;
+	for(int x = start + 1; x < end; x ++){
+	    if(data[x] < val){
+		holder = data[x];
+		data[x] = data[pos + 1];
+		data[pos + 1] = data[pos];
+		data[pos] = holder;
+		pos++;
+	    }
+	}
+    }
+    public static void main(String[] args){
+	int[]ary = { 2, 10, 15, 23, 0,  5};
+	select(ary , 0);
+	select(ary , 1);
+	select(ary , 2);
+	select(ary , 3);
+	select(ary , 4);
+	select(ary , 5);
+    }
+}
