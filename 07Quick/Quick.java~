@@ -3,22 +3,19 @@ public class Quick{
     public Quick(){
     }
     public static int quickselect(int []data, int k){
-	start = 0;
-	while(part(data,start,data.length()) != k){
-	    start = part(data,start,data.length())
-	}
-	else{
-	    return data[start]; 
-	}
-
+	return part(data,0,data.length,k);
     }
-    int part(int[] data, int start, int end){
+    public static int part(int[] data, int start, int end,int k){
+	if(start == end){
+	    return data[start];
+	}
 	Random r = new Random();
 	int pivot = r.nextInt(end - start);
 	int val = data[pivot];
 	data[pivot] = data[start];
+	data[start] = val;
 	int holder = 0;
-	int pos = end;
+	int pos = start;
 	for(int x = start + 1; x < end; x ++){
 	    if(data[x] < val){
 		holder = data[x];
@@ -28,14 +25,21 @@ public class Quick{
 		pos++;
 	    }
 	}
-    }
+	if(pos > k){
+	    return part(data,start,pos - 1 ,k);
+	}
+	else if(pos < k){
+	    return part(data,pos + 1,end,k);
+	}
+	else return data[pos];
+	}
     public static void main(String[] args){
 	int[]ary = { 2, 10, 15, 23, 0,  5};
-	select(ary , 0);
-	select(ary , 1);
-	select(ary , 2);
-	select(ary , 3);
-	select(ary , 4);
-	select(ary , 5);
+	System.out.println(quickselect(ary, 0));
+	System.out.println(quickselect(ary, 1));
+	System.out.println(quickselect(ary, 2));
+	System.out.println(quickselect(ary, 3));
+	System.out.println(quickselect(ary, 4));
+	System.out.println(quickselect(ary, 5));
     }
 }
