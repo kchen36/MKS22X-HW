@@ -2,15 +2,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 public class USACO {
-    public int E, vol; 
+    public int E, N, vol; 
     public int[][] pasture;
     private int [][] field,field1;
     private int time,R1,C1,R2,C2;
+    private boolean found;
     public USACO(){
     }
     public int bronze(String file){
 	scanner(file);
-	return solve();
+	if(found == true){
+	    return solve();
+	}
+	else return 0;
     }
     public void scanner(String file) {
 	try{
@@ -18,18 +22,20 @@ public class USACO {
 	    File text = new File(file);// can be a path"/full/path/to/file.txt
 	    Scanner inf = new Scanner(text);
 	    pasture= new int[inf.nextInt()][inf.nextInt()];
-	    inf.nextInt();
+	    N = inf.nextInt();
 	    for(int a = 0; a < pasture.length;a ++){
 		for(int b = 0; b < pasture[a].length;b++){
 		    pasture[a][b] = inf.nextInt();
 		}
 	    }
-	    while(inf.hasNextInt()){
+	    for(int x = 0; x < N;x ++){
 		stomp(inf.nextInt(),inf.nextInt(),inf.nextInt());
 	    }
+	    found = true;
 	}
 	catch(FileNotFoundException e){
 	}
+        found = false;
     }
     public int solve(){
 	int val= 0;
@@ -44,33 +50,27 @@ public class USACO {
 	return vol;
     }
     private void stomp(int row,int col,int val){
-	int[] max = findGreatest(row, col);
-	int min = pasture[max[0]][max[1]] - val;
-	for(int r = row;r < row + 3; r ++){
-	    for(int c = col; c < col + 3; c ++){
-		if(isInBounds(r, c) && pasture[r][c] > min){
+	int max = findGreatest(row, col);
+	int min = max - val;
+	for(int r = row - 1;r < row + 2; r ++){
+	    for(int c = col - 1; c < col + 2; c ++){
+		if(pasture[r][c] > min){
 		    pasture[r][c] = min;
 		}
 	    }
 	}
     }
 
-    private int[] findGreatest(int row, int col){
+    private int findGreatest(int row, int col){
 	int max = pasture[row][col];
-	int y = row, x = col;
-
 	for(int r = row;r < row + 3; r ++){
 	    for(int c = col; c < col + 3; c ++){
-		if(isInBounds(r, c) && pasture[r][c] > max){
+		if(pasture[r][c] > max){
 		    max = pasture[r][c];
-		    y = r;
-		    x = c;
 		}
 	    }
 	}
-	
-	int[] pos = {y, x};
-	return pos;
+	return max;
     }
     public int silver(String filename) {
 	try {

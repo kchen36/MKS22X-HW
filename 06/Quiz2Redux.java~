@@ -1,43 +1,20 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-public class lakeMaking {
-    public int E vol; 
-    public int[][] pasture;
-    public lakeMaking(file){
-	scanner(file);
+import java.util.*;
+public class Quiz2Redux{
+    public static ArrayList<String> combinations(String s){
+	ArrayList<String>words = new ArrayList<String>();
+	help(words, "", 0, s);
+	Collections.sort(words);
+	return words;
     }
-    public void scanner(file) {
-	try{
-	    //instead of a try/catch, you can throw the FileNotFoundException.
-	    File text = new File(file);// can be a path"/full/path/to/file.txt" 
-	    Scanner inf = new Scanner(text);
-	    pasture= new int[inf.nextInt()][inf.nextInt()];
-	    inf.nextInt();
-	    lineNumber = 1;
-	    while(inf.hasNextLine() & lineNumber < pasture.length){
-		String line = inf.nextLine();
-		pasture[lineNumber] = line.split(" ");
-	    }
-	    stomp(inf.nextInt(),inf.nextInt(),inf.nextInt());
-	    stomp(inf.nextInt(),inf.nextInt(),inf.nextInt());
+  
+    private static void help(ArrayList<String> words, String s, int index, String original){
+	if(index == original.length()){
+	    words.add(s);
 	}
-	catch(FileNotFoundexception e){
+	else{
+	    words.add(s);
+	    help(words, s + original.charAt(index), index ++, original);
+	    help(words, s,index ++, original);
 	}
-    }
-    public void solve(){
-	inv val= 0;
-	for(int y = 0; y < pasture.length; y ++){
-	    for(int x = 0; x < pasture[y].length;x ++){
-		if(pasture[y][x] < E){
-		    val += E;
-		    val -= pasture[y][x];
-		}
-	    }
-	}
-	vol = val * 72 * 72;
-    }
-    public String toString(){
-	return "" + vol;
     }
 }
