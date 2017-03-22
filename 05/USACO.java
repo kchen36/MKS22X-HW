@@ -6,7 +6,7 @@ public class USACO {
     public int[][] pasture;
     private int [][] field,field1;
     private int time,R1,C1,R2,C2;
-    private boolean found;
+    private boolean found = false;
     public USACO(){
     }
     public int bronze(String file){
@@ -22,6 +22,7 @@ public class USACO {
 	    File text = new File(file);// can be a path"/full/path/to/file.txt
 	    Scanner inf = new Scanner(text);
 	    pasture= new int[inf.nextInt()][inf.nextInt()];
+	    E = inf.nextInt();
 	    N = inf.nextInt();
 	    for(int a = 0; a < pasture.length;a ++){
 		for(int b = 0; b < pasture[a].length;b++){
@@ -35,7 +36,6 @@ public class USACO {
 	}
 	catch(FileNotFoundException e){
 	}
-        found = false;
     }
     public int solve(){
 	int val= 0;
@@ -62,9 +62,9 @@ public class USACO {
     }
 
     private int findGreatest(int row, int col){
-	int max = pasture[row][col];
-	for(int r = row;r < row + 3; r ++){
-	    for(int c = col; c < col + 3; c ++){
+	int max = pasture[row - 1][col - 1];
+	for(int r = row-1;r < row + 2; r ++){
+	    for(int c = col - 1; c < col + 2; c ++){
 		if(pasture[r][c] > max){
 		    max = pasture[r][c];
 		}
@@ -156,9 +156,9 @@ public class USACO {
     public boolean isInBounds(int r, int c){
 	return r >= 0 && c >= 0 && r < pasture.length  && c < pasture[0].length;
     }
-    public void main(String[] args){
+    public static void main(String[] args){
 	USACO a = new USACO();
-	System.out.println(a.bronze("lake"));
+	System.out.println(a.bronze("test.txt"));
 	System.out.println(a.silver("map"));
     }
 }
