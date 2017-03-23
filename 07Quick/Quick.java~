@@ -11,12 +11,12 @@ public class Quick{
 	}
 	Random r = new Random();
 	int pivot = r.nextInt(end - start);
-	int val = data[pivot];
-	data[pivot] = data[start];
+	int val = data[pivot + start];
+	data[pivot + start] = data[start];
 	data[start] = val;
 	int holder = 0;
 	int pos = start;
-	for(int x = start + 1; x < end; x ++){
+	for(int x = start + 1; x < end ; x ++){
 	    if(data[x] < val){
 		holder = data[x];
 		data[x] = data[pos + 1];
@@ -26,16 +26,16 @@ public class Quick{
 	    }
 	}
 	if(pos > k){
-	    return part(data,start,pos - 1 ,k);
+	    return part(data,start,pos,k);
 	}
 	else if(pos < k){
-	    return part(data,pos + 1,end,k);
+	    return part(data,pos,end,k);
 	}
 	else return data[pos];
 	}
     public static void main(String[] args){
 	int[]ary = { 2, 10, 15, 23, 0,  5};
-	System.out.println(quickselect(ary, 0));
+    System.out.println(quickselect(ary, 0));
 	System.out.println(quickselect(ary, 1));
 	System.out.println(quickselect(ary, 2));
 	System.out.println(quickselect(ary, 3));
