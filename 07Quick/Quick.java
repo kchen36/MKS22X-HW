@@ -79,6 +79,9 @@ public class Quick{
 	    helper(data,e + 1,end);
 	}
     }
+    public static int[] makeAry(int length, int min,int max){
+	int[]
+    }
     public static void main(String[] args){
 	int[]ary = { 2, 2, 2, 2, 2, 2};
 	quicksort(ary);
