@@ -5,38 +5,26 @@ public class MyLinkedList{
 	size = 0;
     }
     public boolean add(int value) {
-	if(size > 0){
-	    LNode n = new LNode(value);
-	    end.setNext(n);
-	    n.previous = end;
-	    end = end.next;
-	    size ++;
-	    return true;
-	}
-	else{
-	    LNode n = new LNode(value);
-	    start = n;
-	    end = start;
-	    size = 1;
-	    return true;
-	}
+	add(size,value);
     }
     public int size(){
 	return size;
     }
-    public int get(int x){
+    private LNode getNthNode(int n){
 	if(x < 0 || x >= size){
 	    throw new IndexOutOfBoundsException();
 	} 
 	else{
 	    LNode temp = start;
-	    int y = 1;
+	    int y = 0;
 	    while(y < x){
 		temp = temp.next;
 		y++;
 	    }
-	    return temp.value;
-	}
+	    return temp;
+    }
+    public int get(int x){
+	return getNthNode(x).value;
     }
     public int set(int index, int newVal){
 	if(index < 0 || index >= size){
@@ -44,12 +32,12 @@ public class MyLinkedList{
 	} 
 	else{
 	    LNode temp = start;
-	    int y = 1;
+	    int y = 0;
 	    while(y < index){
 		temp = temp.next;
 		y++;
 	    }
-	    int oldval = temp.getval();
+	    int oldval = temp.value;
 	    temp.value = newVal;
 	    return oldval;
 	}
@@ -70,25 +58,37 @@ public class MyLinkedList{
 	return s;
     }
     public void add(int index, int value) {
-	if(index < 0 || index >= size){
+	if(index < 0 || index > size){
 	    throw new IndexOutOfBoundsException();
 	} 
 	LNode a = new LNode(value);
-	LNode temp = start;
-	for(int x = 1;x < index; x++){
-	    temp = temp.next;
+	if(index == 0){
+	    a.next = start;
+	    start.previous = a;
+	    start = a;
 	}
-	LNode holder = temp.next;
-	temp.setNext(a);
-	a.setPrevious(temp);
-	a.setNext(holder);
-	holder.setPrevious(a);
-	size ++;
+	if(index == size){
+	    end.next = a;
+	    a.previous = end;
+	    end = a;
+	}
+	else{
+	    LNode temp = start;
+	    for(int x = 0;x < index; x++){
+		temp = temp.next;
+	    }
+	    LNode holder = temp.next;
+	    temp.setNext(a);
+	    a.setPrevious(temp);
+	    a.setNext(holder);
+	    holder.setPrevious(a);
+	    size ++;
+	}
     }
     public int indexOf(int val) {
 	LNode temp  =  start;
-	for(int x = 1;x < size;x ++){
-	    if(temp.getval() == val){
+	for(int x = 0;x < size;x ++){
+	    if(temp.value == val){
 		return x;
 	    }
 	    temp = temp.next;
@@ -106,9 +106,6 @@ public class MyLinkedList{
 	}
 	public void setPrevious(LNode x){
 	    previous = x;
-	}
-	public int getval(){
-	    return value;
 	}
     }
     public static void main(String[] args){
