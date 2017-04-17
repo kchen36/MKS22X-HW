@@ -1,8 +1,69 @@
-public class MyLinkedList{
+import java.util.*;
+public class MyLinkedList implements Iterable<Integer>{
     LNode start, end; 
     int size;
+    private class MyLinkedListIterator implements Iterator<Integer>{
+	private MyLinkedList a;
+	private int ind;
+	public MyLinkedListIterator(MyLinkedList set){
+	    a = set;
+	}
+	public boolean hasNext(){
+	    return a.size > ind;
+	}
+	public Integer next(){
+	    if(hasNext()){
+		ind ++;
+		return a.get(ind - 1);
+	    }
+	    else{
+		throw new NoSuchElementException();
+	    }
+	}
+	public void remove(){
+	    throw new UnsupportedOperationException();
+	}
+    }
     public MyLinkedList(){
 	size = 0;
+    }
+    public Iterator<Integer> iterator(){
+	return new MyLinkedListIterator(this);
+    }
+    private void addAfter(LNode location, LNode a){
+	if(location == end){
+	    location.next = a;
+	    a.previous = location;
+	}
+	else{
+	    location.next.previous = a;
+	    a.next = location.next;
+	    a.previous = location;
+	    location.next = a;
+	}
+    }
+    private void remove(LNode target){
+	if(target == start){
+	    start = target.next;
+	}
+	else if(target == end){
+	    end = target.previous;
+	}
+	else{
+	    target.previous.next = target.next;
+	    target.next.previous = target.previous;
+	}
+    }
+    public int remove(int index){
+	LNode temp = start;
+	int x = 0;
+	while(x < index){
+	    x ++;
+	    temp = temp.next;
+	}
+	int val = temp.value;
+	remove(temp);
+	return val;
     }
     public boolean add(int value) {
 	add(size,value);
@@ -132,5 +193,8 @@ public class MyLinkedList{
 	System.out.println(a.indexOf(10));
 	System.out.println(a.indexOf(0));
 	System.out.println(a);
+	for(int i:a){
+	    System.out.println(i);
+	}
     }
 }
