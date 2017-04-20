@@ -53,6 +53,7 @@ public class MyLinkedList implements Iterable<Integer>{
 	    target.previous.next = target.next;
 	    target.next.previous = target.previous;
 	}
+	size --;
     }
     public int remove(int index){
 	LNode temp = start;
@@ -137,7 +138,7 @@ public class MyLinkedList implements Iterable<Integer>{
 		start = a;
 		size ++;
 	    }
-	    if(index == size){
+	    else if(index == size){
 		end.next = a;
 		a.previous = end;
 		end = a;
@@ -189,6 +190,7 @@ public class MyLinkedList implements Iterable<Integer>{
 	System.out.println(a.size());
 	System.out.println(a.get(2));
 	System.out.println(a.set(2,10));
+	System.out.println(a.remove(2));
 	a.add(3,6);
 	System.out.println(a.indexOf(10));
 	System.out.println(a.indexOf(0));
