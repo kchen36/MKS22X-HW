@@ -52,12 +52,12 @@ public class MyHeap{
     } 
     private void pushDown(){
 	int x = 1;
-        while(x * 2 < size){
+        while(x * 2 <= size){
 	    String val = ary[x];
 	    String bigger;
 	    int dir;
-	    if(x* 2 < size && x * 2 + 1 <= size){
-		if(ary[x * 2].compareTo(ary[x * 2 + 1]) * constant > 0){
+	    if(x * 2 < size){
+		if(ary[x * 2].compareTo(ary[x * 2 + 1]) * constant < 0){
 		    bigger = ary[x * 2];
 		    dir = 0;
 		}
@@ -65,19 +65,14 @@ public class MyHeap{
 		    bigger = ary[x * 2 + 1];
 		    dir = 1;
 		}
-		if(ary[x * 2 + dir].compareTo(ary[x]) * constant > 0){
+		if(ary[x * 2 + dir].compareTo(ary[x]) * constant < 0){
 		    ary[x] = ary[x * 2 + dir];
 		    ary[x * 2 + dir] = val;
 		    x = x * 2 + dir;
 		}
 		else break;
 	    }
-	    else if(x* 2 <= size && ary[x * 2].compareTo(ary[x]) * constant > 0){
-		ary[x] = ary[x * 2];
-		ary[x * 2] = val;
-		x = x * 2;
-	    }
-	    else if(x* 2 + 1 <= size && ary[x * 2 + 1].compareTo(ary[x]) * constant > 0){
+	    else if(x* 2 <= size && ary[x * 2].compareTo(ary[x]) * constant < 0){
 		ary[x] = ary[x * 2];
 		ary[x * 2] = val;
 		x = x * 2;
@@ -95,14 +90,17 @@ public class MyHeap{
     public static void main(String[] args){
 	MyHeap a = new MyHeap();
 	a.add("a");
+	System.out.println(a);
 	a.add("b");
+	System.out.println(a);
 	a.add("e");
+	System.out.println(a);
 	a.add("c");
+	System.out.println(a);
 	a.add("d");
+	System.out.println(a);
 	a.remove();
-	a.remove();
-	a.remove();
-	a.remove();
+	System.out.println(a);
 	a.remove();
 	System.out.println(a);
     }
