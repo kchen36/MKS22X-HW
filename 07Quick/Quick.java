@@ -2,7 +2,7 @@ import java.util.*;
 public class Quick{
     public Quick(){
     }
-    public static int quickselect(int []data, int k){
+    public static int quicksort(int []data, int k){
 	return part(data,0,data.length,k);
     }
     public static void swap(int[] num,int a, int b){
@@ -78,9 +78,6 @@ public class Quick{
 	    helper(data,start,pos);
 	    helper(data,e + 1,end);
 	}
-    }
-    public static int[] makeAry(int length, int min,int max){
-	int[]
     }
     public static void main(String[] args){
 	int[]ary = { 2, 2, 2, 2, 2, 2};
