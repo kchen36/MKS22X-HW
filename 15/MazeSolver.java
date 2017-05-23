@@ -127,25 +127,11 @@ public class MazeSolver extends Maze{
 	    maze.toString(25);
 	}
     }
+    public String toString(){
+	return maze.toString();
+    }
     public static void main(String[] args){
 	MazeSolver ms = new MazeSolver("data4.txt");
 	ms.solve(2);
-    }
-    public String toString(){
-	int maxr = maze.length;
-	int maxc = maze[0].length;
-	String ans = "";
-	for(int i = 0; i < maxr * maxc; i++){
-	    int row = i/maxc;
-	    int col = i%maxc;
-
-	    char c =  maze[row][col];
-	    ans+=c;
-	    if( col == maxc-1 ){
-		ans += "\n";
-	    }
-
-	}
-	return ans + "\n";
     }
 }
