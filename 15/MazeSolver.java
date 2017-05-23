@@ -2,26 +2,25 @@ import java.io.*;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-public class MazeSolver extends Maze{
+public class MazeSolver{
     private Maze board;
+    Frontier f;
     private boolean animate;
     private int row, col;
     Location e;
     private boolean astar;
     public MazeSolver(String filename){
-	this(filename);
-	astar = false;
+	this(filename,false);
     }
     public MazeSolver(String filename, boolean ani){
-	this(filename);
-	animates = ani;
+	board = new Maze(filename);
+	animate = ani;
 	astar = false;
     }
-    public solve(){
+    public void solve(){
 	solve(1);
     }
     public void solve(int x){
-	Frontier f;
 	astar = false;
 	if(x == 0){
 	    f = new FrontierStack();
@@ -33,7 +32,7 @@ public class MazeSolver extends Maze{
 	    f = new FrontierPriorityQueue();
 	}
 	else if(x == 3){
-	    f = new FrontierPriority queue();
+	    f = new FrontierPriorityQueue();
 	    astar = true;
 	}
 	else throw new IllegalArgumentException();
@@ -45,7 +44,7 @@ public class MazeSolver extends Maze{
 	
     }
     private boolean inBound(int r, int c){
-	return r >= 0 && c >= 0 && r< row && c < col; && maze.get(r,c) ==' ';
+	return r >= 0 && c >= 0 && r< row && c < col && board.get(r,c) ==' ';
     }
     public String toString(){
 	if (animate) {
@@ -54,12 +53,12 @@ public class MazeSolver extends Maze{
 	else return board.toString();
     }
     private void go(){
-	er = e.getr();
-	ec = e.getc();
-	while(f.hasNext()){
+	int er = e.getr();
+	int ec = e.getc();
+	while(f.getSize() != 0){
 	    Location l = f.next();
-	    r = l.getr();
-	    c = l.getc();
+	    int r = l.getr();
+	    int c = l.getc();
 	    board.set(r,c,'.');
 	    if(inBound(r - 1, c)){
 		if(r - 1 == er && c == ec){
@@ -68,7 +67,7 @@ public class MazeSolver extends Maze{
 		    break;
 		}
 		else {
-		    int d = = Math.abs(er - (r - 1)) + Math.abs(ec - c);
+		    int d = Math.abs(er - (r - 1)) + Math.abs(ec - c);
 		    board.set(r - 1,c,'?');
 		    Location n = new Location(r - 1,c,l,l.gets() + 1, d, astar);
 		    f.add(n);
@@ -81,7 +80,7 @@ public class MazeSolver extends Maze{
 		    break;
 		}
 		else {
-		    int d = = Math.abs(er - r) + Math.abs(ec - (c - 1));
+		    int d = Math.abs(er - r) + Math.abs(ec - (c - 1));
 		    board.set(r,c - 1,'?');
 		    Location n = new Location(r,c - 1,l,l.gets() + 1, d, astar);
 		    f.add(n);
@@ -94,7 +93,7 @@ public class MazeSolver extends Maze{
 		    break;
 		}
 		else {
-		    int d = = Math.abs(er - (r + 1)) + Math.abs(ec - c);
+		    int d = Math.abs(er - (r + 1)) + Math.abs(ec - c);
 		    board.set(r + 1,c,'?');
 		    Location n = new Location(r + 1,c,l,l.gets() + 1, d, astar);
 		    f.add(n);
@@ -107,7 +106,7 @@ public class MazeSolver extends Maze{
 		    break;
 		}
 		else {
-		    int d = = Math.abs(er - r) + Math.abs(ec - (c + 1));
+		    int d = Math.abs(er - r) + Math.abs(ec - (c + 1));
 		    board.set(r,c + 1,'?');
 		    Location n = new Location(r,c + 1,l,l.gets() + 1, d, astar);
 		    f.add(n);
@@ -120,15 +119,12 @@ public class MazeSolver extends Maze{
     }
     private void back(Location l){
 	if(l.prev() != null){
-	    board.set(l.getr,l.getc,'@');
+	    board.set(l.getr(),l.getc(),'@');
 	    back(l.prev());
 	}
 	if(animate){
-	    maze.toString(25);
+	    board.toString(25);
 	}
-    }
-    public String toString(){
-	return maze.toString();
     }
     public static void main(String[] args){
 	MazeSolver ms = new MazeSolver("data4.txt");

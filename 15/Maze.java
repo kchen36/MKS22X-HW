@@ -19,12 +19,12 @@ public class Maze{
 	return end;
     }
 
-    public getRow(){
-	return MaxRows;
+    public int getRow(){
+	return maxRows;
     }
 
-    public getCol(){
-	return MaxCols;
+    public int getCol(){
+	return maxCols;
     }
 
     private static String go(int x,int y){
