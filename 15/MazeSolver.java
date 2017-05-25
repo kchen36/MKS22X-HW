@@ -44,7 +44,10 @@ public class MazeSolver{
 	
     }
     private boolean inBound(int r, int c){
-	return r >= 0 && c >= 0 && r< row && c < col && board.get(r,c) ==' ';
+	if(r >= 1 && c >= 1 && r < row - 1 && c < col - 1){
+	    return board.get(r,c) == ' ';
+	}
+	return false;
     }
     public String toString(){
 	if (animate) {
@@ -55,10 +58,12 @@ public class MazeSolver{
     private void go(){
 	int er = e.getr();
 	int ec = e.getc();
+	System.out.println(f.getSize());
 	while(f.getSize() != 0){
 	    Location l = f.next();
 	    int r = l.getr();
 	    int c = l.getc();
+	    System.out.println(r);
 	    board.set(r,c,'.');
 	    if(inBound(r - 1, c)){
 		if(r - 1 == er && c == ec){
@@ -128,6 +133,7 @@ public class MazeSolver{
     }
     public static void main(String[] args){
 	MazeSolver ms = new MazeSolver("data4.txt");
-	ms.solve(2);
+	ms.solve(1);
+	System.out.println(ms);
     }
 }

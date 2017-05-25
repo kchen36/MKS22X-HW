@@ -15,7 +15,9 @@ public class FrontierPriorityQueue implements Frontier{
 	ary = ary2;
     }
     public void add(Location s){
-	if(size == ary.length) resize();
+	if(size == ary.length - 1){
+	    resize();
+	}
 	ary[size + 1] = s;
 	size ++;
 	if(size > 1){
