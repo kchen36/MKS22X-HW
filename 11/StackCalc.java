@@ -9,7 +9,7 @@ public class StackCalc{
 	if(func.equals("+")) return val2 + val;
 	if(func.equals("-")) return val2 - val;
 	if(func.equals("*")) return val2 * val;
-	if(func.equals("%")) return val2 % val;
+	if(func.equals("%")) return val2 / val;
 	else return val2 % val;
     }
     public static double eval(String a){
