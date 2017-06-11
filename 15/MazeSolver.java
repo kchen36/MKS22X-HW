@@ -58,12 +58,10 @@ public class MazeSolver{
     private void go(){
 	int er = e.getr();
 	int ec = e.getc();
-	System.out.println(f.getSize());
 	while(f.getSize() != 0){
 	    Location l = f.next();
 	    int r = l.getr();
 	    int c = l.getc();
-	    System.out.println(r);
 	    board.set(r,c,'.');
 	    if(inBound(r - 1, c)){
 		if(r - 1 == er && c == ec){
